@@ -8,6 +8,25 @@ env:
   POSTGIS_VERSION: "2.5.9" # TODO 3.1.5
 
 jobs:
+  tasks: # TODO Remove
+    name: List tasks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 15
+      - name: List tasks
+        run: ./gradlew tasks
+      - name: List all tasks
+        run: ./gradlew tasks --all
+      - name: List :repacked-platforms tasks
+        run: ./gradlew :repacked-platforms:tasks --all
+      - name: Query all tasks
+        run: ./gradlew -q :tasks --all
   linux:
     name: PostgreSQL (Linux)
     runs-on: ubuntu-latest
