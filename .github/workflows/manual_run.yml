@@ -9,7 +9,7 @@ env:
 
 jobs:
   tasks: # TODO Remove
-    name: List tasks
+    name: List tasks on Ubuntu
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
@@ -25,6 +25,29 @@ jobs:
         run: ./gradlew tasks --all
       - name: List :repacked-platforms tasks
         run: ./gradlew :repacked-platforms:tasks --all
+      - name: List :debian-platforms tasks
+        run: ./gradlew :debian-platforms:tasks --all
+      - name: Query all tasks
+        run: ./gradlew -q :tasks --all
+  tasks-win: # TODO Remove
+    name: List tasks on Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 15
+      - name: List tasks
+        run: ./gradlew tasks
+      - name: List all tasks
+        run: ./gradlew tasks --all
+      - name: List :repacked-platforms tasks
+        run: ./gradlew :repacked-platforms:tasks --all
+      - name: List :debian-platforms tasks
+        run: ./gradlew :debian-platforms:tasks --all
       - name: Query all tasks
         run: ./gradlew -q :tasks --all
   linux:
@@ -38,6 +61,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 15
+      - name: List :debian-platforms tasks # TODO Remove
+        run: ./gradlew :debian-platforms:tasks --all
       - name: Build Bundle
         run: ./gradlew :debian-platforms:buildArm64v8DebianBundle -Pversion=$RELEASE_VERSION -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
       - name: Test PostgreSQL bundle
@@ -73,6 +98,8 @@ jobs:
       - name: Update system paths
         run: echo $PGBIN >> $GITHUB_PATH
         shell: bash
+      - name: List :repacked-platforms tasks # TODO Remove
+        run: ./gradlew :repacked-platforms:tasks --all
       - name: Test PostgreSQL bundle
         run: ./gradlew :repacked-platforms:testAmd64WindowsJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
         shell: bash
