@@ -21,6 +21,8 @@ jobs:
           java-version: 15
       - name: List tasks
         run: ./gradlew tasks
+      - name: List tasks -PpostgisVersion=$POSTGIS_VERSION
+        run: ./gradlew tasks -PpostgisVersion=$POSTGIS_VERSION
       - name: List all tasks
         run: ./gradlew tasks --all
       - name: List :repacked-platforms tasks
@@ -64,9 +66,9 @@ jobs:
       - name: List :debian-platforms tasks # TODO Remove
         run: ./gradlew :debian-platforms:tasks --all
       - name: Build Bundle
-        run: ./gradlew :debian-platforms:buildArm64v8DebianBundle -Pversion=$RELEASE_VERSION -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
+        run: ./gradlew :debian-platforms:buildArm64v8DebianBundle -Pversion=$RELEASE_VERSION -PpgVersion=$POSTGRES_VERSION # TODO -PpostgisVersion=$POSTGIS_VERSION
       - name: Test PostgreSQL bundle
-        run: ./gradlew :debian-platforms:testAmd64DebianJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
+        run: ./gradlew :debian-platforms:testAmd64DebianJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION # TODO -PpostgisVersion=$POSTGIS_VERSION
         timeout-minutes: 10
   macos:
     name: PostgreSQL (MacOS)
@@ -80,7 +82,7 @@ jobs:
           distribution: 'zulu'
           java-version: 15
       - name: Test PostgreSQL bundle
-        run: ./gradlew :repacked-platforms:testAmd64DarwinJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
+        run: ./gradlew :repacked-platforms:testAmd64DarwinJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION # TODO -PpostgisVersion=$POSTGIS_VERSION
         timeout-minutes: 10
   windows:
     name: PostgreSQL (Windows)
@@ -101,6 +103,6 @@ jobs:
       - name: List :repacked-platforms tasks # TODO Remove
         run: ./gradlew :repacked-platforms:tasks --all
       - name: Test PostgreSQL bundle
-        run: ./gradlew :repacked-platforms:testAmd64WindowsJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
+        run: ./gradlew :repacked-platforms:testAmd64WindowsJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION # TODO -PpostgisVersion=$POSTGIS_VERSION
         shell: bash
         timeout-minutes: 10
