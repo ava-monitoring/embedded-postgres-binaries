@@ -9,7 +9,7 @@ env:
 
 jobs:
   linux:
-    name: PostgreSQL ${{ env.POSTGRES_VERSION }} (Linux)
+    name: PostgreSQL (Linux)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew :debian-platforms:testAmd64DebianJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
         timeout-minutes: 10
   macos:
-    name: PostgreSQL ${{ env.POSTGRES_VERSION }} (MacOS)
+    name: PostgreSQL (MacOS)
     runs-on: macos-latest
     steps:
       - name: Checkout project
@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew :repacked-platforms:testAmd64DarwinJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
         timeout-minutes: 10
   windows:
-    name: PostgreSQL ${{ env.POSTGRES_VERSION }} (Windows)
+    name: PostgreSQL (Windows)
     runs-on: windows-latest
     steps:
       - name: Checkout project
