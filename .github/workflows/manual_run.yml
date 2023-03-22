@@ -65,10 +65,12 @@ jobs:
           java-version: 15
       - name: List :debian-platforms tasks # TODO Remove
         run: ./gradlew :debian-platforms:tasks --all
+      - name: List :custom-debian-platforms tasks # TODO Remove
+        run: ./gradlew :custom-debian-platforms:tasks --all
       - name: Build Bundle
-        run: ./gradlew :debian-platforms:buildArm64v8DebianBundle -Pversion=$RELEASE_VERSION -PpgVersion=$POSTGRES_VERSION # TODO -PpostgisVersion=$POSTGIS_VERSION
+        run: ./gradlew :custom-debian-platforms:buildCustomDebianBundle -Pversion=$RELEASE_VERSION -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
       - name: Test PostgreSQL bundle
-        run: ./gradlew :debian-platforms:testAmd64DebianJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION # TODO -PpostgisVersion=$POSTGIS_VERSION
+        run: ./gradlew :custom-debian-platform:testCustomDebianJar -Pversion=$POSTGRES_VERSION-TEST -PpgVersion=$POSTGRES_VERSION -PpostgisVersion=$POSTGIS_VERSION
         timeout-minutes: 10
   macos:
     name: PostgreSQL (MacOS)
